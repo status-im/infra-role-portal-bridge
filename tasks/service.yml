@@ -1,0 +1,16 @@
+---
+- name: Create systemd Unit file
+  template:
+    src:  'portal_bridge.service.j2'
+    dest: '/etc/systemd/system/{{ portal_bridge_service_name }}.service'
+    mode: 0644
+  register: portal_bridge_service_definition
+
+- name: Reload and restart the service
+  systemd:
+    name: '{{ portal_bridge_service_name }}.service'
+    enabled: true
+    daemon_reload: true
+    state: |-
+      {{ portal_bridge_service_definition.changed
+       | ternary("restarted", "started") }}

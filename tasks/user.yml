@@ -1,0 +1,13 @@
+---
+- name: Create user for portal bridge service
+  user:
+    name: '{{ portal_bridge_user }}'
+    group: '{{ portal_bridge_group }}'
+    shell: '/bin/bash'
+
+- name: Set disable rebase as merge strategy
+  git_config:
+    scope: 'global'
+    name: 'pull.rebase'
+    value: 'false'
+  become_user: '{{ portal_bridge_user }}'

@@ -1,0 +1,45 @@
+---
+- name: Create folder
+  file:
+    path:  '{{ portal_bridge_repo_path }}'
+    owner: '{{ portal_bridge_user }}'
+    group: '{{ portal_bridge_group }}'
+    state: 'directory'
+
+- name: Clone repo branch
+  git:
+    repo:    '{{ portal_bridge_repo_url }}'
+    version: '{{ portal_bridge_repo_branch }}'
+    dest:    '{{ portal_bridge_repo_path }}'
+    force:   true
+    update:  true
+  become_user: '{{ portal_bridge_user }}'
+
+- name: Create build script
+  template:
+    src:   'build.sh.j2'
+    dest:  '{{ portal_bridge_update_script_path }}'
+    owner: '{{ portal_bridge_user }}'
+    group: '{{ portal_bridge_group }}'
+    mode:  0775
+
+- name: Check if node binary exists
+  stat:
+    path: '{{ portal_bridge_binary_path }}'
+  register: portal_bridge_bin
+
+- name: Create timer for build script
+  include_role: name=infra-role-systemd-timer
+  vars:
+    systemd_timer_description: 'Update {{ portal_bridge_service_name }}'
+    systemd_timer_name:         '{{ portal_bridge_update_service_name }}'
+    systemd_timer_user:         '{{ portal_bridge_user }}'
+    systemd_timer_group:        '{{ portal_bridge_group }}'
+    systemd_timer_work_dir:     '{{ portal_bridge_repo_path }}'
+    systemd_timer_enabled:      '{{ portal_bridge_update_timer_enabled }}'
+    systemd_timer_frequency:    '{{ portal_bridge_update_frequency }}'
+    systemd_timer_timeout_sec:  '{{ portal_bridge_update_timer_timeout }}'
+    systemd_timer_script_path:  '{{ portal_bridge_update_script_path }}'
+    systemd_timer_start_on_creation: '{{ not portal_bridge_bin.stat.exists }}'
+    systemd_timer_ionice_class: 'idle'
+    systemd_timer_consul_warning: true

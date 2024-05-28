@@ -1,0 +1,36 @@
+
+Description=Nimbus Eth1 portal bridge node ({{ portal_bridge_repo_branch }})
+Documentation=https://github.com/status-im/nimbus-eth1
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+User={{ portal_bridge_user }}
+Group={{ portal_bridge_group }}
+WorkingDirectory={{ portal_bridge_service_path }}
+SyslogIdentifier={{ portal_bridge_service_name }}
+SyslogFacility=local6
+SyslogLevel=debug
+Restart=on-failure
+ExecStart={{ portal_bridge_binary_path }} \
+{% if portal_bridge_command == "beacon" %}
+  beacon
+  --rest-url=
+  --backfill-amount=
+{% elif portal_bridge_command == "history" %}
+  history \
+  --web3-url={{ portal_bridge_web3_url | mandatory }} \
+  --block-verify={{ portal_bridge_block_verify }} \
+  --latest={{ portal_bridge_era1_dir }} \
+  --backfill={{ portal_bridge_backfill }} \
+  --audit={{ portal_bridge_audit }} \
+  --era1-dir={{ portal_bridge_era1_dir }} \
+{% elif portal_bridge_command == 'state' %}
+  --web3-url={{ portal_bridge_web3_url | mandatory }} \
+{% endif %}
+  --rpc-port={{ portal_bridge_rpc_address }} \
+  --rpc-address={{ portal_bridge_rpc_address }} \
+  --log-level={{ portal_bridge_log_level }}
+
+[Install]
+WantedBy=multi-user.target

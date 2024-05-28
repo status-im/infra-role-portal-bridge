@@ -1,0 +1,16 @@
+---
+- name: Create service directory
+  file:
+    path: '{{ portal_bridge_service_path }}'
+    state: directory
+    owner: '{{ portal_bridge_user }}'
+    group: '{{ portal_bridge_group }}'
+    mode: 0775
+
+- name: Create data directory
+  file:
+    path: '{{ portal_bridge_data_path }}'
+    state: directory
+    owner: '{{ portal_bridge_user }}'
+    group: '{{ portal_bridge_group }}'
+    mode: 0770

@@ -1,0 +1,54 @@
+---
+portal_bridge_service_name: 'nimbus-portal-bridge'
+portal_bridge_service_path: '/data/{{ portal_bridge_service_name }}'
+portal_bridge_data_path: '{{ portal_bridge_service_path }}/data'
+portal_bridge_repo_path: '{{ portal_bridge_service_path }}/repo'
+portal_bridge_update_script_path: '{{ portal_bridge_service_path }}/build.sh'
+portal_bridge_binary_path: '{{ portal_bridge_repo_path }}/build/portal_bridge'
+
+# Update
+portal_bridge_update_service_name: 'update-{{ portal_bridge_service_name }}'
+portal_bridge_update_restart_service: '{{ portal_bridge_service_name }}.service'
+portal_bridge_update_timer_enabled: true
+portal_bridge_update_timer_timeout: 3600
+portal_bridge_update_frequency: 'weekly'
+portal_bridge_update_days_kept: 3
+portal_bridge_update_jobs: '{{ ansible_processor_vcpus / 2 | round(0, "ceil") }}'
+portal_bridge_update_log_level: 'TRACE'
+portal_bridge_update_restarts_service: true
+portal_bridge_update_nim_flags: ['-d:chronicles_colors=none']
+
+# Repo
+portal_bridge_repo_url: 'https://github.com/status-im/nimbus-eth1'
+portal_bridge_repo_branch: 'master'
+
+# User
+portal_bridge_user: 'nimbus'
+portal_bridge_group: 'staff'
+
+# General
+portal_bridge_command: 'beacon' # beacon, history, state
+portal_bridge_log_level: 'INFO' # TRACE DEBUG INFO NOTICE WARN ERROR FATAL NONE
+portal_bridge_rpc_address: '127.0.0.1'
+portal_bridge_rpc_port: 8545
+# beacon
+portal_bridge_rest_url: 'http://127.0.0.1:5052'
+portal_bridge_backfill_amount: 64
+# history
+#portal_bridge_web3_url: ~
+portal_bridge_block_verify: false
+portal_bridge_latest: true
+portal_bridge_backfill: flase
+portal_bridge_audit: true
+portal_bridge_era1_dir: '{{ portal_bridge_service_path }}/era'
+
+# Consul service definition settings
+portal_bridge_consul_service_name: 'nimbus-portal-bridge'
+portal_bridge_consul_service_file_name: '{{ portal_bridge_service_name | replace("-", "_") }}'
+portal_bridge_consul_url: 'http://localhost:8500/v1/catalog'
+portal_bridge_consul_check_interval: '60s'
+portal_bridge_consul_check_timeout: '5s'
+portal_bridge_consul_check_disabled: false
+portal_bridge_consul_success_before_passing: 0
+portal_bridge_consul_failures_before_warning: 1
+portal_bridge_consul_failures_before_critical: 2
