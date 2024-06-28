@@ -7,7 +7,7 @@ function headIsDetached() {
 }
 
 function binaryExists() {
-    ls build/portal_bridge_{COMMIT} 2>&1 1>/dev/null
+    ls build/portal_bridge_${COMMIT} 2>&1 1>/dev/null
 }
 
 function fetchChanges() {
@@ -26,10 +26,10 @@ function buildBinaries() {
         NIMFLAGS="{{ portal_bridge_update_nim_flags | join(' ') }}"
 
     # Rename binaries to match commit they were built from.
-    mv "build/portal_bridge" "build/portal_bridge_{COMMIT}"
+    mv "build/portal_bridge" "build/portal_bridge_${COMMIT}"
 
     # Create a symbolic link to the latest version
-    ln -frs build/portal_bridge_{COMMIT} build/portal_bridge
+    ln -frs build/portal_bridge_${COMMIT} build/portal_bridge
 
     # Delete copies that are older than N days
     find build -mtime +{{ portal_bridge_update_days_kept }} -exec rm '{}' \+
