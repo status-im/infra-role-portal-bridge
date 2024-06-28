@@ -38,9 +38,11 @@ portal_bridge_backfill_amount: 64
 #portal_bridge_web3_url: ~
 portal_bridge_block_verify: false
 portal_bridge_latest: true
-portal_bridge_backfill: flase
+portal_bridge_backfill: false
 portal_bridge_audit: true
 portal_bridge_era1_dir: '{{ portal_bridge_service_path }}/era'
+# state
+portal_bridge_web3_url: 'https://127.0.0.1:8545'
 
 # Consul service definition settings
 portal_bridge_consul_service_name: 'nimbus-portal-bridge'
