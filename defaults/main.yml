@@ -29,10 +29,9 @@ portal_bridge_group: 'staff'
 # General
 portal_bridge_command: 'beacon' # beacon, history, state
 portal_bridge_log_level: 'INFO' # TRACE DEBUG INFO NOTICE WARN ERROR FATAL NONE
-portal_bridge_rpc_address: '127.0.0.1'
-portal_bridge_rpc_port: 8545
+#portal_bridge_portal_rpc_url: 'http://127.0.0:8545
 # beacon
-portal_bridge_rest_url: 'http://127.0.0.1:5052'
+#portal_bridge_rest_url: 'http://127.0.0.1:5052'
 portal_bridge_backfill_amount: 64
 # history
 #portal_bridge_web3_url: ~
@@ -42,7 +41,7 @@ portal_bridge_backfill: false
 portal_bridge_audit: true
 portal_bridge_era1_dir: '{{ portal_bridge_service_path }}/era'
 # state
-portal_bridge_web3_url: 'https://127.0.0.1:8545'
+#portal_bridge_web3_url: 'https://127.0.0.1:5052'
 
 # Consul service definition settings
 portal_bridge_consul_service_name: 'nimbus-portal-bridge'

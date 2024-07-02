@@ -14,8 +14,7 @@ SyslogLevel=debug
 Restart=on-failure
 ExecStart={{ portal_bridge_binary_path }} \
   --log-level={{ portal_bridge_log_level | upper }} \
-  --rpc-address={{ portal_bridge_rpc_address }} \
-  --rpc-port={{ portal_bridge_rpc_port }} \
+  --portal-rpc-url={{ portal_bridge_portal_rpc_url }} \
 {% if portal_bridge_command == "beacon" %}
   beacon \
   --rest-url={{ portal_bridge_rest_url | mandatory }} \
