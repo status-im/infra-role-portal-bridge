@@ -23,6 +23,12 @@
     group: '{{ portal_bridge_group }}'
     mode:  0775
 
+- name: Sudoers file to let non-root users start jobs
+  template:
+    src:  'build.sudoers.j2'
+    dest: '/etc/sudoers.d/80-{{ portal_bridge_service_name }}-builds'
+    mode: 0440
+
 - name: Check if node binary exists
   stat:
     path: '{{ portal_bridge_binary_path }}'

@@ -1,0 +1,12 @@
+# Allow non-root users start Nimbus Fluffy builds and manage service with sudo.
+
+# {{ portal_bridge_service_name }}
+%{{ portal_bridge_group }} ALL= NOPASSWD: /usr/bin/systemctl *status {{ portal_bridge_service_name }}*
+%{{ portal_bridge_group }} ALL= NOPASSWD: /usr/bin/systemctl *start {{ portal_bridge_service_name }}*
+%{{ portal_bridge_group }} ALL= NOPASSWD: /usr/bin/systemctl *stop {{ portal_bridge_service_name }}*
+%{{ portal_bridge_group }} ALL= NOPASSWD: /usr/bin/systemctl *restart {{ portal_bridge_service_name }}*
+# update-{{ portal_bridge_service_name }}
+%{{ portal_bridge_group }} ALL= NOPASSWD: /usr/bin/systemctl *status update-{{ portal_bridge_service_name }}*
+%{{ portal_bridge_group }} ALL= NOPASSWD: /usr/bin/systemctl *start update-{{ portal_bridge_service_name }}*
+%{{ portal_bridge_group }} ALL= NOPASSWD: /usr/bin/systemctl *stop update-{{ portal_bridge_service_name }}*
+%{{ portal_bridge_group }} ALL= NOPASSWD: /usr/bin/systemctl *restart update-{{ portal_bridge_service_name }}*
