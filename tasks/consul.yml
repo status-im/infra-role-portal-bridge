@@ -7,8 +7,6 @@
     consul_services:
       - id:      '{{ portal_bridge_service_name }}'
         name:    '{{ portal_bridge_consul_service_name }}'
-        port:    '{{ portal_bridge_rpc_port }}'
-        address: '{{ portal_bridge_rpc_address }}'
         tags: ['{{ env }}.{{ stage }}', 'eth1', 'nimbus', 'portal', 'bridge']
         checks:
           - id:       '{{ portal_bridge_consul_service_name }}-health'
@@ -16,8 +14,8 @@
             interval: '{{ portal_bridge_consul_check_interval }}'
             timeout:  '{{ portal_bridge_consul_check_timeout }}'
             disabled: '{{ portal_bridge_consul_check_disabled }}'
-            tcp:      'localhost:{{ portal_bridge_rpc_address }}'
-            type:     'tcp'
+            type:     'script'
+            script:   '/usr/bin/systemctl is-active {{ portal_bridge_service_name }}'
             success_before_passing:   '{{ portal_bridge_consul_success_before_passing }}'
             failures_before_warning:  '{{ portal_bridge_consul_failures_before_warning }}'
             failures_before_critical: '{{ portal_bridge_consul_failures_before_critical }}'
