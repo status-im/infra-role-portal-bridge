@@ -21,7 +21,7 @@ function buildBinaries() {
     export MAKEFLAGS="-j{{ portal_bridge_update_jobs | int }}"
 
     make update OVERRIDE=1
-    make portal_bridge \
+    make nimbus_portal_bridge \
         LOG_LEVEL="{{ portal_bridge_update_log_level }}" \
         NIMFLAGS="{{ portal_bridge_update_nim_flags | join(' ') }}"
 
