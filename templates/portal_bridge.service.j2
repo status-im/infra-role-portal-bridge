@@ -24,8 +24,7 @@ ExecStart={{ portal_bridge_binary_path }} \
   --web3-url={{ portal_bridge_web3_url | mandatory }} \
   --block-verify={{ portal_bridge_block_verify }} \
   --latest={{ portal_bridge_latest }} \
-  --backfill={{ portal_bridge_backfill }} \
-  --audit={{ portal_bridge_audit }} \
+  --backfill-mode={{ portal_bridge_backfill_mode }} \
   --era1-dir={{ portal_bridge_era1_dir }}
 {% elif portal_bridge_command == 'state' %}
   state \
