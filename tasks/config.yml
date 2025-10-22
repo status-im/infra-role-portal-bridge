@@ -14,3 +14,10 @@
     owner: '{{ portal_bridge_user }}'
     group: '{{ portal_bridge_group }}'
     mode: 0770
+
+- name: Symlink service logs folder
+  file:
+    src: '/var/log/service/{{ portal_bridge_service_name }}'
+    dest: '{{ portal_bridge_logs_link }}'
+    state: 'link'
+    force: true
