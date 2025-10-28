@@ -5,7 +5,7 @@ portal_bridge_data_path: '{{ portal_bridge_service_path }}/data'
 portal_bridge_repo_path: '{{ portal_bridge_service_path }}/repo'
 portal_bridge_logs_link: '{{ portal_bridge_service_path }}/logs'
 portal_bridge_update_script_path: '{{ portal_bridge_service_path }}/build.sh'
-portal_bridge_binary_path: '{{ portal_bridge_repo_path }}/build/portal_bridge'
+portal_bridge_binary_path: '{{ portal_bridge_repo_path }}/build/nimbus_portal_bridge'
 
 # Update
 portal_bridge_update_service_name: 'update-{{ portal_bridge_service_name }}'
